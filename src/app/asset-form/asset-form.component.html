@@ -1,0 +1,24 @@
+<div class="form-group">
+  <ul class="asset-list-item">
+    <p-card>
+<!--      <p-dropdown [options]="assetOptions" [(ngModel)]="selectedAssetOption" placeholder="Select an asset type" [showClear]="true"></p-dropdown>-->
+      <p-dropdown #crypto_select [options]="availableCryptos" [(ngModel)]="selectedCrypto" [showClear]="true" [filter]="true" filterBy="label" [virtualScroll]="true" [resetFilterOnHide]="true" [itemSize]="31" placeholder="Select a crypto">
+        <ng-template pTemplate="selectedItem">
+          <div *ngIf="selectedCrypto">
+<!--            <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" />-->
+            <div>{{selectedCrypto}}</div>
+          </div>
+        </ng-template>
+        <ng-template let-crypto pTemplate="item">
+          <div>
+<!--            <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />-->
+            <div>{{crypto.label}}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+      <p-inputNumber [(ngModel)]="assetAmount" mode="decimal"></p-inputNumber>
+      <button pButton pRipple type="button" (click)="addAsset()" label="Add" class="p-button-secondary add_asset_btn"></button>
+    </p-card>
+  </ul>
+</div>
+

@@ -1,0 +1,63 @@
+.asset-header {
+  height: auto;
+  min-height: 5em;
+  color: white;
+}
+
+@media (min-width: 0px) {
+  .header-grid {
+    display: grid;
+    overflow: visible;
+    grid-template:
+    "id . . . amount logo" 2em/
+    3em 3em 3em 3em 2em 3em;
+  }
+
+  #crypto_id {
+    grid-area: id;
+  }
+
+  #crypto_amount {
+    grid-area: amount;
+  }
+
+  #crypto_logo {
+    grid-area: logo;
+  }
+}
+
+
+.asset-title {
+  color: white;
+  align-items: center;
+  font-size: larger;
+}
+
+.crypto_id {
+  margin-left: 3rem;
+  opacity: 0.3;
+}
+
+.asset-description {
+  justify-content: flex-end;
+  align-items: center;
+  color: white;
+  font-size: larger;
+}
+
+.logo {
+  height: 2rem;
+  width: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+:host ::ng-deep .p-panel-header {
+  height: 5rem;
+}
+
+.float-right {
+  float: right;
+}
+
+

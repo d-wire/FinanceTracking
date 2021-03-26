@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/bootstrap4-dark-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+
+$base-background-dark: #20262e;
+
+html, body {
+  height: 100%;
+  font-size: 16px;
+}
+
+body {
+  background-color: $base-background-dark;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0 2em 0 0;
+}
+
+@font-face {
+  font-family: american_captain;
+  src: url(assets/AmericanCaptain-MdEY.otf) format("opentype");
+}
+
+.asset {
+  background-color: #23272a;
+  color: white;
+}
+
+.asset-list-item {
+  margin-top: 0px;
+}
+
+.hidden {
+  display: none;
+}

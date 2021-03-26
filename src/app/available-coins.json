@@ -1,0 +1,18 @@
+[
+  "id", "BTC",
+  {
+    "logo_url": " https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg"
+  },
+  {
+    "id": "ETH",
+    "logo_url":
+  },
+  {
+    "id": ,
+    "logo_url":
+  },
+  {
+    "id": ,
+    "logo_url":
+  }
+]

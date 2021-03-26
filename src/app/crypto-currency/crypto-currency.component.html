@@ -1,0 +1,10 @@
+<p-panel [toggleable]="true" [collapsed]="true" toggler="header">
+  <p-header>{{crypto.name}}<span class="crypto_id">{{crypto.id}}</span></p-header>
+  <ng-template pTemplate="icons">
+<!--    <span class="header-grid">-->
+      <span id="crypto_amount">{{crypto.amount}}</span><img id="crypto_logo" class="logo" src="{{crypto.logo_url}}">
+<!--    </span>-->
+  </ng-template>
+  <p><strong>Current Price:</strong><span> {{crypto.price | currency}}</span><span class="float-right"> {{crypto.market_cap | currency}}</span><strong class="float-right">Market Cap:</strong></p>
+  <p-chart type="line" [data]="historicalData" [options]="chartOptions" width="400" height="300"></p-chart>
+</p-panel>

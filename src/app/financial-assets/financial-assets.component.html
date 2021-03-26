@@ -1,0 +1,15 @@
+<div>
+  <div class="net-worth">
+    <strong>Net Worth: ${{user.net_worth | number:'1.000'}}</strong>
+  </div>
+  <mat-accordion>
+    <ul class="asset-list-item" *ngFor="let crypto of user.assets['CRYPTO']; trackBy: trackByCryptoId">
+      <app-crypto-currency *ngIf="initialHistoricalDataRetrieved" [crypto]="crypto"></app-crypto-currency>
+    </ul>
+  </mat-accordion>
+  <button pButton pRipple type="button" [ngClass]="{'hidden' : displayAssetForm}" (click)="displayAssetForm = true;" icon="pi pi-plus" class="p-button-secondary add_asset_btn"></button>
+  <button pButton pRipple type="button" [ngClass]="{'hidden' : !displayAssetForm}" (click)="displayAssetForm = false;" icon="pi pi-minus" class="p-button-secondary add_asset_btn"></button>
+  <div [hidden]="!displayAssetForm">
+      <app-asset-form (asset)="addCrypto($event)"></app-asset-form>
+  </div>
+</div>
