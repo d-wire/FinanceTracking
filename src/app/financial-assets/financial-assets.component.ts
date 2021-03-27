@@ -11,27 +11,26 @@ import {CRYPTO} from '../models/constants';
 export class FinancialAssetsComponent implements OnInit {
 
   user: User = {first_name: 'Liam', last_name: 'Dwyer', net_worth: 0, assets: new Map<string, Array<Asset>>()};
-  testCrypto: Array<CryptoPrimitive> = [{id: 'ADA', amount: 10}];
   displayAssetForm = false;
   initialHistoricalDataRetrieved = false;
 
-  constructor(private cryptoService: CryptoDataService, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private cryptoService: CryptoDataService) { }
 
   ngOnInit(): void {
-    this.user.assets[CRYPTO] = this.testCrypto;
+    // If no assets, then initialize an empty array (only crypto at the moment)
+    if (this.user.assets[CRYPTO] === undefined) {
+      this.user.assets[CRYPTO] = new Array<CryptoCurrency>();
+      // Set this to true so assets will render since there were no initial assets to load
+      this.initialHistoricalDataRetrieved = true;
+    }
     this.populateCryptoData(this.user.assets[CRYPTO]);
     this.user.assets[CRYPTO].forEach((crypto, index) => {
       this.populateHistoricalData(crypto, index, true);
     });
-
-    this.changeDetectorRef.detectChanges();
   }
 
   public populateCryptoData(cryptos: Array<CryptoCurrency>): void {
-    const tmpArr = new Array<string>();
-    cryptos.forEach((crypto) => {
-      tmpArr.push(crypto.id);
-    });
+    const tmpArr = cryptos.map(crypto => crypto.id);
     this.cryptoService.getCryptoData(tmpArr.join(','))
       .subscribe((data) => {
         data.forEach(returnVal => {
@@ -47,6 +46,18 @@ export class FinancialAssetsComponent implements OnInit {
       });
   }
 
+  public populateSingleCryptoData(crypto: CryptoCurrency): void {
+    this.cryptoService.getCryptoData(crypto.id)
+      .subscribe((data) => {
+        const index = this.user.assets[CRYPTO].length - 1;
+        const tmpAmount = this.user.assets[CRYPTO][index].amount;
+        this.user.assets[CRYPTO][index] = data[0];
+        this.user.assets[CRYPTO][index].amount = tmpAmount;
+
+        this.calculateCryptoNetWorth(this.user.assets[CRYPTO][index]);
+      });
+  }
+
   public populateHistoricalData(cryptoPrimitive: CryptoPrimitive, index: number, initialization: boolean): void {
     let weekPriceData: any;
     this.cryptoService.getHistoricalData(cryptoPrimitive.id)
@@ -57,10 +68,12 @@ export class FinancialAssetsComponent implements OnInit {
           console.log(err);
         },
         () => {
+        // If not initialization, then wait to push to user assets array so it won't try to render anything until call completes
           if (!initialization) {
             this.user.assets[CRYPTO].push(cryptoPrimitive);
-            this.populateCryptoData(this.user.assets[CRYPTO]);
+            this.populateSingleCryptoData(this.user.assets[CRYPTO][index]);
           }
+          // Otherwise mark initialization as complete so initial elements can render
           else {
             this.initialHistoricalDataRetrieved = true;
           }

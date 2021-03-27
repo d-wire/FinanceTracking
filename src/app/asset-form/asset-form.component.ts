@@ -1,6 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as cryptocurrencies from 'cryptocurrencies';
-import {CRYPTO} from '../models/constants';
 import {CryptoPrimitive} from '../models/models';
 
 @Component({
@@ -10,8 +9,6 @@ import {CryptoPrimitive} from '../models/models';
 })
 export class AssetFormComponent implements OnInit {
 
-  assetOptions = ['CryptoCurrency'];
-  selectedAssetOption = this.assetOptions[0];
   tmpArr: Array<string> = cryptocurrencies.symbols();
   availableCryptos: any;
   selectedCrypto: string;
@@ -27,6 +24,12 @@ export class AssetFormComponent implements OnInit {
   addAsset(): void {
     const cryptoPrimitive: CryptoPrimitive = {id: this.selectedCrypto, amount: this.assetAmount};
     this.asset.emit(cryptoPrimitive);
+    this.clearValues();
+  }
+
+  clearValues(): void {
+    this.selectedCrypto = undefined;
+    this.assetAmount = undefined;
   }
 
 }
