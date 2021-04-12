@@ -1,10 +1,10 @@
 # FinanceTracking
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2.
+A simple Electron/Angular application for tracking cryptocurrency investments and overall net-worth. It currently uses static data as no db has been integrated yet.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run electron` for a dev server. An Electron window should pop-up on your screen once it all compiles.
 
 ## Code scaffolding
 
